@@ -6,7 +6,7 @@ import org.example.duke.choice.Customer;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+    void main() {
         final double TAX = 0.2;
         double total = 0;
         Clothing[] items = new Clothing[10];
