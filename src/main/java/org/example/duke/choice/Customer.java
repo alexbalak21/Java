@@ -35,4 +35,19 @@ public class Customer {
         return totalPrice;
     }
 
+    public double getAverageOfSize (char size) {
+        double total = 0;
+        int sizeCount = 0;
+        for (Clothing item : items) {
+            sizeCount += item.getSize() == size ? 1 : 0;
+            total += item.getPrice();
+        }
+        try{
+            return total / sizeCount;
+        } catch (ArithmeticException e) {
+            return 0;
+        }
+
+    }
+
 }
