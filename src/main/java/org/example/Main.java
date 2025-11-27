@@ -3,6 +3,7 @@ package org.example;
 import org.example.duke.choice.Clothing;
 import org.example.duke.choice.Customer;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
@@ -40,16 +41,8 @@ public class Main {
         customerAddsItems(customer3, items);
 
         customer1.getCustomerInfo();
-        System.out.println("Total: " + customer1.getTotalPrice(TAX));
-        customer2.getCustomerInfo();
-        System.out.println("Total: " + customer2.getTotalPrice(TAX));
-        customer3.getCustomerInfo();
-        System.out.println("Total: " + customer3.getTotalPrice(TAX));
-
-        System.out.println("Average of size M: " + customer1.getAverageOfSize('M'));
-        System.out.println("Average of size L: " + customer1.getAverageOfSize('L'));
-        System.out.println("Average of size S: " + customer1.getAverageOfSize('S'));
-
+        customer1.getItems().set(0, new Clothing("New T-shirt", 66.6, 'M'));
+        customer1.getCustomerInfo();
         }
 
 

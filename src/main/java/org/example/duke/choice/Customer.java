@@ -1,8 +1,12 @@
 package org.example.duke.choice;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 public class Customer {
     private final String name;
-    Clothing[] items;
+    private final Clothing[] items;
 
     public Customer(String name) {
         this.name = name;
@@ -17,22 +21,27 @@ public class Customer {
             }
         }
     }
+    public List<Clothing> getItems() {
+        return Collections.unmodifiableList(Arrays.asList(items));
+    }
 
     public void getCustomerInfo () {
-        System.out.println("Customer: " + name);
-        System.out.println("Items:");
+        System.out.println("Customer Name: " + name);
+        System.out.println("Customer Items:");
         for (Clothing item : items) {
-            System.out.println(item.getDescription() + " , " + item.getPrice() + " , " + item.getSize());
+            System.out.println(item);
         }
     }
 
-    public double getTotalPrice (double tax) {
+    public double getTotalPrice(double tax) {
         double totalPrice = 0;
         for (Clothing item : items) {
             totalPrice += item.getPrice();
         }
         totalPrice += totalPrice * tax;
-        return totalPrice;
+
+        // Round to 2 decimal places
+        return Math.round(totalPrice * 100.0) / 100.0;
     }
 
     public double getAverageOfSize (char size) {
