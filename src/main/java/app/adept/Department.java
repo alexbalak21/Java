@@ -25,14 +25,16 @@ public class Department {
         return employees;
     }
 
-    public String addEmployee(Employee employee){
-        int length = this.employees.length;
-        if (length >= 10) return "Max employees reached";
-        else {
-            this.employees[length - 1] = employee;
-            employee.setDepartment_id(this.id);
-            return "Employee " + employee.getName() + " has been added to " + this.getName() + " Department";
+    public void addEmployee(Employee employee){
+        for (int i = 0; i < employees.length ; i++){
+            if (employees[i] == null){
+                employees[i] = employee;
+                employee.setDepartment_id(this.id);
+                System.out.println("Employee " + employee.getName() + " has been added to " + this.getName() + " Department");
+                return;
+            }
         }
+        System.out.println("Max employees of " + this.getName() + " Department reached");
     }
 
     public String[] getEmployeesNames(){
@@ -44,7 +46,11 @@ public class Department {
     }
 
     public int getEmployeesNumber(){
-        return this.employees.length;
+        int count = 0;
+        for (Employee employee : this.employees){
+            if (employee != null) count++;
+        }
+        return count;
     }
 
     public Employee getEmployeeById(int id){
@@ -69,12 +75,19 @@ public class Department {
         return salaryTotal / employeesNumber;
     }
 
+    private boolean checkIfFull(){
+        for (Employee employee : this.employees){
+            if (employee == null) return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
-        return "Department{" +
+        return "Department:" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", employees=" + Arrays.toString(employees) +
-                '}';
+                ']';
     }
 }
