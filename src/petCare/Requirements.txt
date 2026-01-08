@@ -1,0 +1,123 @@
+After completing this project, you will be able to demonstrate your ability to:
+
+Apply object-oriented programming principles to design Pet and Appointment classes using encapsulation
+Construct and manipulate ArrayList or HashMap collections to manage multiple pet records and appointments
+Use Java's Date and Time API to record and compare dates for pet registration and appointments
+Implement Java File I/O operations to persist and retrieve pet and appointment data from files
+Handle invalid inputs and runtime exceptions gracefully using Java's exception handling mechanisms
+Develop conditional logic and looping constructs to navigate menu options and display various appointment histories and reports
+Generate simple reports from stored data to show upcoming and overdue appointments
+Your completed project will demonstrate that you can work with:
+
+Basics of Java programming
+Strings and string operations
+Operators and Data Types
+Exceptions
+for Loops and the while Loop
+Conditional statements
+Arrays, Sets, Maps
+Basic methods and functions
+OOPs
+Prerequisites
+Before you begin, you must have successfully completed the courses related to Java programming fundamentals and object-oriented programming in Java. The practice project in this course “Eco-Points Recycling Tracker” provides a strong foundation for completing this graded project.
+
+About the project
+You're a junior Java developer working for a small local pet care service that helps pet owners keep their furry friends healthy and happy.
+
+Pet owners often forget important tasks such as vet visits, vaccinations, and grooming appointments. Paws & Whiskers wants to provide a simple console-based app to help them organize all their pet care needs in one place.
+
+Your goal is to build a console-based, pet care scheduler application that lets users register their pets, log important appointments, track upcoming tasks, and keep a history of past visits, all while safely storing this information so it doesn't disappear when the app closes.
+
+This is your sharable, graded project. You'll apply all of the skills you practiced in your guided Eco-Points Recycling Tracker.
+
+This project, which will take between 90 to 120 minutes to complete, is comprised of the following tasks:
+
+Task 1: The Object blueprint classes
+Create the following well-structured classes:
+
+Pet class with the following attributes:
+- Unique Pet ID
+- Name
+- Species/Breed
+- Age
+- Owner name
+- Contact Info
+- Registration date
+- List of appointments, using an appropriate collection object.
+
+Appointment class with the following attributes:
+- Appointment type (such as vet visit, vaccination, grooming)
+- Date and time
+- Notes (optional)
+
+Important: Use encapsulation to protect data and keep your code organized.
+
+Task 2: The main application
+Create the PetCare Scheduler application that will:
+
+Load Data: Load any existing data from the files, when the application starts up. Ensure this method is private.
+Take and Process user input: Take user input and process it to perform one of the allowed operations:
+Register a pet
+Schedule an appointment
+Store the details in a file
+Display details of pets and/or appointments
+Generate reports
+Task 3: Add the methods to handle user input
+Register the pet: Create new pet profiles that contain the following information:
+- Anique Pet ID. Handle ID duplication.
+- Name
+- Species/Breed
+- Age. Handle any errors that can be caused by invalid inputs.
+- Owner/Contact name
+- Registration date. Use the Date & Time packages to record pet registration dates. Handle any errors that can be caused by invalid inputs.
+- Add the pet to the collection
+
+Schedule an ppointment: Allow users to schedule appointments for a pet, including:
+- Appointment type (such as vet visit, vaccination, grooming)
+- Date and time of appointment. Handle any errors that can be caused by invalid inputs.
+- Notes if needed
+- Add the appointment to the collection for that pet.
+
+Display the records: Show the following information based on the option chosen:
+- All registered pets
+- All appointments for a specific pet
+- Upcoming appointments for all pets
+- Past appointment history for each pet
+
+Store data: Save pet profiles and appointment records to files using Java File I/O so data persists when the program closes. Handle any errors that can be caused during File I/O.
+
+Generate reports: Produce simple reports including:
+- Pets with upcoming appointments in the next week
+- Pets overdue for a vet visit (For example: No vet visit in the last 6 months)
+
+Task 4: Compile and run
+Compile all the file you have created and run the application and verify that the application functions as per the requirements.
+
+How this project is graded
+After completing this graded project, you will complete the graded evaluation. Most of the questions for this evaluation will require that you copy and paste your code into the graded assignment submission fields. Consider saving your code to a locally stored file to make this process easier.
+
+You can earn a total of 50 points for this project based on the following point distribution system for each of the following questions:
+
+Provide the code that creates the Pet Class. (5 points)
+Provide the code for the appointment class. (4 points)
+Select the best option for handling the appointment date and time in the Appointment Class. (1 point)
+Specify which class you use to specify the requested date and time format. (2 points)
+Specify the which class processes user input. (3 points)
+Provide the code that handles user choices. (3 points)
+Provide the code that handles pet registration. (3 points)
+Provide the code that handles appointment scheduling. (4 points)
+Provide the code that displays data based on the project requirements. (7 points)
+Provide the code that saves pet and appointment scheduling data. (3 points)
+Provide the code that addresses loading data from a file. (4 points)
+Provide the code that generates reports based on the project requirements. (3 points)
+Provide the User menu output that you see when you run the application. (3 points)
+Provide the output obtained when you register a pet. (3 points)
+Provide the output obtained when you schedule an appointment. (2 points)
+Next steps
+Here are some tips for successfully completing the PetCare Scheduler project:
+
+Review the project before you begin and be ready to apply the skills your practiced in the prior project.
+Read and follow the instructions carefully to complete the project.
+Consider saving your code to a text file for easy access to it, as you complete the graded assignment instructions.
+Read and follow the graded assignment instructions carefully when you submit your answers.
+Let's get started!
