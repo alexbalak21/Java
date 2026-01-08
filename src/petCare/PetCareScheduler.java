@@ -8,16 +8,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * The main application class for the Pet Care Scheduler.
+ * Manages pets and appointments, provides a console-based menu for user interactions,
+ * loads and saves data from/to files.
+ */
 public class PetCareScheduler {
 
     private HashMap<Integer, Pet> pets = new HashMap<>();
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * The main entry point of the application.
+     * Creates an instance of PetCareScheduler and starts it.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         PetCareScheduler scheduler = new PetCareScheduler();
         scheduler.start();
     }
 
+    /**
+     * Starts the application by loading data, running the menu, and saving data on exit.
+     */
     public void start() {
         loadData();
         runMenu();
@@ -26,14 +40,19 @@ public class PetCareScheduler {
 
     // Task 2: Load Data - Load any existing data from the files, when the application starts up.
     // Grading: Provide the code that addresses loading data from a file. (4 points)
+    /**
+     * Loads pets and appointments from files at application startup.
+     */
     private void loadData() {
         pets = DataLoader.loadPets();
         DataLoader.loadAppointments(pets);
         System.out.println("Data loaded successfully.");
     }
 
-    // Task 3: Store data - Save pet profiles and appointment records to files
-    // Grading: Provide the code that saves pet and appointment scheduling data. (3 points)
+    // Store data - Save pet profiles and appointment records to files
+    /**
+     * Saves pets and appointments to files when the application exits.
+     */
     private void saveData() {
         DataLoader.savePets(pets);
         DataLoader.saveAppointments(pets);
@@ -41,6 +60,11 @@ public class PetCareScheduler {
     }
 
     //Take and Process user input - Take user input and process it to perform one of the allowed operations
+    /**
+     * Displays the main menu and processes user choices in a loop.
+     * Allows users to register pets, schedule appointments, display data, generate reports, or exit.
+     * Continues until the user selects exit.
+     */
     private void runMenu() {
         boolean running = true;
 
@@ -91,6 +115,10 @@ public class PetCareScheduler {
 
     // Register the pet - Create new pet profiles
     // Grading: Provide the code that handles pet registration. (3 points)
+    /**
+     * Prompts the user to enter pet details and registers a new pet.
+     * Validates ID uniqueness, name, species, age, owner name, and contact info.
+     */
     private void registerPet() {
         System.out.print("Enter pet ID (unique integer): ");
         int id = 0;
@@ -108,9 +136,25 @@ public class PetCareScheduler {
             }
         }
         System.out.print("Enter pet name: ");
-        String name = scanner.nextLine();
+        String name = "";
+        while (true) {
+            name = scanner.nextLine().trim();
+            if (name.isEmpty() || !name.matches("^[a-zA-Z\\s']+$")) {
+                System.out.print("Invalid name. Please enter a name with only letters, spaces, and apostrophes: ");
+                continue;
+            }
+            break;
+        }
         System.out.print("Enter pet species/breed: ");
-        String species = scanner.nextLine();
+        String species = "";
+        while (true) {
+            species = scanner.nextLine().trim();
+            if (species.isEmpty() || !species.matches("^[a-zA-Z\\s'-]+$")) {
+                System.out.print("Invalid species/breed. Please enter with only letters, spaces, hyphens, and apostrophes: ");
+                continue;
+            }
+            break;
+        }
         System.out.print("Enter pet age: ");
         int age = 0;
         while (true) {
@@ -128,9 +172,17 @@ public class PetCareScheduler {
 
         }
         System.out.print("Enter owner name: ");
-        String owner = scanner.nextLine();
+        String owner = "";
+        while (true) {
+            owner = scanner.nextLine().trim();
+            if (owner.isEmpty()) {
+                System.out.print("Owner name cannot be empty. Please enter a valid owner name: ");
+                continue;
+            }
+            break;
+        }
         System.out.print("Enter owner contact info: ");
-        String contact = scanner.nextLine();
+        String contact = scanner.nextLine().trim();
 
         Pet pet = new Pet(id, name, species, age, owner, contact);
         pets.put(pet.getId(), pet);
@@ -139,6 +191,10 @@ public class PetCareScheduler {
 
     // Schedule an appointment - Allow users to schedule appointments for a pet
     // Grading: Provide the code that handles appointment scheduling. (4 points)
+    /**
+     * Prompts the user to schedule an appointment for a pet.
+     * Validates pet ID, appointment type, future date/time, and checks for conflicts.
+     */
     private void scheduleAppointment() {
         System.out.print("Enter pet ID: ");
         int petId = 0;
@@ -158,7 +214,15 @@ public class PetCareScheduler {
         }
 
         System.out.print("Enter appointment type: ");
-        String type = scanner.nextLine();
+        String type = "";
+        while (true) {
+            type = scanner.nextLine().trim();
+            if (type.isEmpty()) {
+                System.out.print("Appointment type cannot be empty. Please enter a valid type: ");
+                continue;
+            }
+            break;
+        }
 
         LocalDateTime appointmentDateTime = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -169,6 +233,23 @@ public class PetCareScheduler {
 
             try {
                 appointmentDateTime = LocalDateTime.parse(dateTimeInput, formatter);
+                LocalDateTime now = LocalDateTime.now();
+                if (appointmentDateTime.isBefore(now)) {
+                    System.out.println("Cannot schedule appointments in the past. Please enter a future date and time.");
+                    continue;
+                }
+                // Check if the date/time is already taken for this pet
+                boolean conflict = false;
+                for (Appointment existing : pets.get(petId).getAppointments()) {
+                    if (existing.getDateTime().equals(appointmentDateTime)) {
+                        conflict = true;
+                        break;
+                    }
+                }
+                if (conflict) {
+                    System.out.println("This date and time is already booked for this pet. Please choose a different time.");
+                    continue;
+                }
                 break; // valid → exit loop
             } catch (Exception e) {
                 System.out.println("Invalid date/time format. Please try again.");
@@ -185,6 +266,9 @@ public class PetCareScheduler {
     }
 
     // Display the records - All registered pets
+    /**
+     * Displays all registered pets.
+     */
     private void displayPets() {
         for (Pet pet : pets.values()) {
             System.out.println(pet);
@@ -192,6 +276,9 @@ public class PetCareScheduler {
     }
 
     // Display the records - All appointments for a specific pet
+    /**
+     * Prompts for a pet ID and displays all appointments for that pet.
+     */
     private void displayAppointmentsForPet() {
         System.out.print("Enter pet ID to view appointments: ");
         int petId = 0;
@@ -215,7 +302,9 @@ public class PetCareScheduler {
         }
     }
 
-    // Task 3: Display the records - Upcoming appointments for all pets
+    /**
+     * Displays all upcoming appointments for all pets.
+     */
     private void displayUpcomingAppointments() {
         System.out.println("Upcoming Appointments:");
         LocalDateTime now = LocalDateTime.now();
@@ -233,7 +322,9 @@ public class PetCareScheduler {
         }
     }
 
-    // Display the records - Past appointment history for each pet
+    /**
+     * Displays past appointment history for each pet.
+     */
     private void displayPastAppointments() {
         System.out.println("Past Appointments:");
         LocalDateTime now = LocalDateTime.now();
@@ -252,7 +343,7 @@ public class PetCareScheduler {
         }
     }
 
-    // Task 3: Generate reports - Produce simple reports
+    // Generate reports - Produce simple reports
     // Grading: Provide the code that generates reports based on the project requirements. (3 points)
     private void generateReports() {
         System.out.println("--- Reports ---");
@@ -273,6 +364,9 @@ public class PetCareScheduler {
         }
     }
 
+    /**
+     * Generates a report of pets with upcoming appointments in the next week.
+     */
     private void reportUpcomingWeek() {
         System.out.println("Pets with upcoming appointments in the next week:");
         LocalDateTime now = LocalDateTime.now();
@@ -296,6 +390,9 @@ public class PetCareScheduler {
         }
     }
 
+    /**
+     * Generates a report of pets overdue for a vet visit (no vet visit in the last 6 months).
+     */
     private void reportOverdueVet() {
         System.out.println("Pets overdue for a vet visit (no vet visit in the last 6 months):");
         LocalDateTime sixMonthsAgo = LocalDateTime.now().minusMonths(6);

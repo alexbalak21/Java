@@ -1,4 +1,3 @@
-// Task 3: Implement Java File I/O operations to persist and retrieve pet and appointment data from files
 package petCare;
 
 import java.io.*;
@@ -12,6 +11,13 @@ public class DataLoader {
     private static final String APPOINTMENTS_FILE = "../appointments.txt";
 
     // Load pets from file - part of loading data
+    /**
+     * Loads pets from the pets file into a HashMap.
+     * Parses each line, creates Pet objects, and sets their registration dates.
+     * Skips invalid lines and handles exceptions gracefully.
+     *
+     * @return a HashMap of pets keyed by their ID
+     */
     public static HashMap<Integer, Pet> loadPets() {
         HashMap<Integer, Pet> pets = new HashMap<>();
 
@@ -36,15 +42,28 @@ public class DataLoader {
                 pets.put(id, pet);
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error loading pets: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error loading pets: " + e.getMessage());
         }
 
         return pets;
     }
 
     // Load appointments and attach them to pets - part of loading data
+    /**
+     * Loads appointments from the appointments file and attaches them to the corresponding pets.
+     * Parses each line and adds appointments to pets if the pet exists.
+     * Handles null pets map and exceptions gracefully.
+     *
+     * @param pets the HashMap of pets to attach appointments to
+     */
     public static void loadAppointments(HashMap<Integer, Pet> pets) {
+        if (pets == null) {
+            System.out.println("Error: Pets map is null.");
+            return;
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(APPOINTMENTS_FILE))) {
             String line;
 
@@ -64,13 +83,26 @@ public class DataLoader {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error loading appointments: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error loading appointments: " + e.getMessage());
         }
     }
 
     // Save pets - part of storing data
+    /**
+     * Saves the pets from the HashMap to the pets file.
+     * Writes each pet's details in pipe-separated format.
+     * Handles null pets map and exceptions gracefully.
+     *
+     * @param pets the HashMap of pets to save
+     */
     public static void savePets(HashMap<Integer, Pet> pets) {
+        if (pets == null) {
+            System.out.println("Error: Pets map is null.");
+            return;
+        }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(PETS_FILE))) {
             for (Pet p : pets.values()) {
                 bw.write(p.getId() + "|" +
@@ -82,13 +114,26 @@ public class DataLoader {
                          p.getRegistration_date());
                 bw.newLine();
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error saving pets: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error saving pets: " + e.getMessage());
         }
     }
 
     // Save appointments - part of storing data
+    /**
+     * Saves the appointments for all pets to the appointments file.
+     * Writes each appointment's details in pipe-separated format.
+     * Handles null pets map and exceptions gracefully.
+     *
+     * @param pets the HashMap of pets whose appointments to save
+     */
     public static void saveAppointments(HashMap<Integer, Pet> pets) {
+        if (pets == null) {
+            System.out.println("Error: Pets map is null.");
+            return;
+        }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(APPOINTMENTS_FILE))) {
             for (Pet p : pets.values()) {
                 for (Appointment a : p.getAppointments()) {
@@ -99,8 +144,10 @@ public class DataLoader {
                     bw.newLine();
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error saving appointments: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error saving appointments: " + e.getMessage());
         }
     }
 }
