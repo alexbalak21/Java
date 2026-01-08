@@ -40,7 +40,7 @@ public class PetCareScheduler {
         System.out.println("Data saved.");
     }
 
-    // Task 2: Take and Process user input - Take user input and process it to perform one of the allowed operations
+    //Take and Process user input - Take user input and process it to perform one of the allowed operations
     private void runMenu() {
         boolean running = true;
 
@@ -89,7 +89,7 @@ public class PetCareScheduler {
         }
     }
 
-    // Task 3: Register the pet - Create new pet profiles
+    // Register the pet - Create new pet profiles
     // Grading: Provide the code that handles pet registration. (3 points)
     private void registerPet() {
         System.out.print("Enter pet ID (unique integer): ");
@@ -137,7 +137,7 @@ public class PetCareScheduler {
         System.out.println("Pet registered successfully with ID: " + pet.getId());
     }
 
-    // Task 3: Schedule an appointment - Allow users to schedule appointments for a pet
+    // Schedule an appointment - Allow users to schedule appointments for a pet
     // Grading: Provide the code that handles appointment scheduling. (4 points)
     private void scheduleAppointment() {
         System.out.print("Enter pet ID: ");
@@ -184,14 +184,14 @@ public class PetCareScheduler {
         System.out.println("Appointment scheduled successfully!");
     }
 
-    // Task 3: Display the records - All registered pets
+    // Display the records - All registered pets
     private void displayPets() {
         for (Pet pet : pets.values()) {
             System.out.println(pet);
         }
     }
 
-    // Task 3: Display the records - All appointments for a specific pet
+    // Display the records - All appointments for a specific pet
     private void displayAppointmentsForPet() {
         System.out.print("Enter pet ID to view appointments: ");
         int petId = 0;
@@ -233,7 +233,7 @@ public class PetCareScheduler {
         }
     }
 
-    // Task 3: Display the records - Past appointment history for each pet
+    // Display the records - Past appointment history for each pet
     private void displayPastAppointments() {
         System.out.println("Past Appointments:");
         LocalDateTime now = LocalDateTime.now();
